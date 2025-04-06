@@ -1,16 +1,28 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="fixed w-full bg-everest-black text-white z-50 font-montserrat">
-      <div className="container mx-auto px-4 py-3">
+    <nav className={`fixed w-full z-50 font-montserrat transition-all duration-300 ${
+      isScrolled ? 'bg-everest-black py-3' : 'bg-transparent py-6'
+    }`}>
+      <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex justify-between items-center">
-          <div className="text-2xl font-bold tracking-wider">
+          <div className="text-2xl font-medium tracking-wider">
             <a href="#hero" className="text-everest-yellow">EVEREST</a>
           </div>
 
@@ -18,21 +30,22 @@ const Navbar = () => {
           <div className="md:hidden">
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white hover:text-everest-yellow"
+              className="text-white hover:text-everest-yellow transition-colors"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              <Menu size={24} />
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
 
           {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <ul className="flex space-x-8">
-              <li><a href="#hero" className="hover:text-everest-yellow transition-colors">Inicio</a></li>
-              <li><a href="#services" className="hover:text-everest-yellow transition-colors">Planes</a></li>
-              <li><a href="#contact" className="hover:text-everest-yellow transition-colors">Contacto</a></li>
+          <div className="hidden md:flex items-center space-x-12">
+            <ul className="flex space-x-10">
+              <li><a href="#hero" className="text-white hover:text-everest-yellow transition-colors text-sm tracking-wide">Inicio</a></li>
+              <li><a href="#services" className="text-white hover:text-everest-yellow transition-colors text-sm tracking-wide">Planes</a></li>
+              <li><a href="#contact" className="text-white hover:text-everest-yellow transition-colors text-sm tracking-wide">Contacto</a></li>
             </ul>
             <Button 
-              className="bg-everest-yellow hover:bg-opacity-80 text-everest-black font-semibold px-6"
+              className="bg-everest-yellow hover:bg-opacity-90 text-everest-black font-medium px-6 rounded-none"
             >
               Únete
             </Button>
@@ -41,15 +54,16 @@ const Navbar = () => {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 animate-fade-in">
-            <ul className="flex flex-col space-y-3">
-              <li><a href="#hero" className="block hover:text-everest-yellow" onClick={() => setIsMenuOpen(false)}>Inicio</a></li>
-              <li><a href="#services" className="block hover:text-everest-yellow" onClick={() => setIsMenuOpen(false)}>Planes</a></li>
-              <li><a href="#contact" className="block hover:text-everest-yellow" onClick={() => setIsMenuOpen(false)}>Contacto</a></li>
+          <div className="md:hidden py-6 animate-fade-in border-t border-white/10 mt-4">
+            <ul className="flex flex-col space-y-4">
+              <li><a href="#hero" className="block text-white hover:text-everest-yellow text-sm tracking-wide" onClick={() => setIsMenuOpen(false)}>Inicio</a></li>
+              <li><a href="#services" className="block text-white hover:text-everest-yellow text-sm tracking-wide" onClick={() => setIsMenuOpen(false)}>Planes</a></li>
+              <li><a href="#contact" className="block text-white hover:text-everest-yellow text-sm tracking-wide" onClick={() => setIsMenuOpen(false)}>Contacto</a></li>
             </ul>
-            <div className="mt-4">
+            <div className="mt-6">
               <Button 
-                className="w-full bg-everest-yellow hover:bg-opacity-80 text-everest-black font-semibold"
+                className="w-full bg-everest-yellow hover:bg-opacity-90 text-everest-black font-medium rounded-none"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Únete
               </Button>
