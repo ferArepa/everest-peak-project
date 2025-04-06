@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Github, Globe, Twitter, Linkedin } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 const TeamSection = () => {
   const teamMembers = [
@@ -34,39 +36,40 @@ const TeamSection = () => {
   ];
 
   return (
-    <section id="team" className="bg-everest-gray py-20 relative">
+    <section id="team" className="bg-white py-20 relative">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold tracking-wider text-everest-black mb-4 uppercase">
-            Cards con GitHub
+            Nuestro Equipo
           </h2>
-          <div className="h-1 w-20 bg-everest-yellow mx-auto"></div>
+          <Separator className="w-16 h-1 bg-everest-yellow mx-auto" />
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {teamMembers.map((member, index) => (
-            <div 
+            <Card 
               key={index} 
-              className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:-translate-y-2 duration-300"
+              className="bg-white border-none shadow-md hover:shadow-lg transition-all duration-300"
             >
-              <div className="h-64 overflow-hidden">
+              <div className="aspect-square overflow-hidden">
                 <img 
                   src={member.image} 
                   alt={member.name} 
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-everest-black">{member.name}</h3>
-                <p className="text-gray-600 mb-4">{member.role}</p>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-everest-black">{member.name}</h3>
+                <p className="text-gray-600 text-sm mb-4">{member.role}</p>
                 
                 <div className="flex justify-between items-center">
-                  <div className="flex space-x-3">
+                  <div className="flex space-x-4">
                     <a 
                       href={member.github} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-gray-600 hover:text-everest-yellow transition-colors"
+                      className="text-gray-400 hover:text-everest-yellow transition-colors"
+                      aria-label="Github"
                     >
                       <Github size={20} />
                     </a>
@@ -74,7 +77,8 @@ const TeamSection = () => {
                       href={member.twitter} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-gray-600 hover:text-everest-yellow transition-colors"
+                      className="text-gray-400 hover:text-everest-yellow transition-colors"
+                      aria-label="Twitter"
                     >
                       <Twitter size={20} />
                     </a>
@@ -82,7 +86,8 @@ const TeamSection = () => {
                       href={member.linkedin} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-gray-600 hover:text-everest-yellow transition-colors"
+                      className="text-gray-400 hover:text-everest-yellow transition-colors"
+                      aria-label="LinkedIn"
                     >
                       <Linkedin size={20} />
                     </a>
@@ -91,20 +96,20 @@ const TeamSection = () => {
                     href={member.portfolio} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="flex items-center text-everest-black font-medium hover:text-everest-yellow transition-colors"
+                    className="text-sm text-everest-black font-medium hover:text-everest-yellow transition-colors flex items-center"
                   >
-                    <Globe size={18} className="mr-1" />
+                    <Globe size={16} className="mr-1" />
                     <span>Portfolio</span>
                   </a>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
       
-      {/* Diagonal element at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-everest-black" style={{ clipPath: 'polygon(0 100%, 100% 0, 100% 100%, 0 100%)' }}></div>
+      {/* Subtle diagonal element at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-everest-gray" style={{ clipPath: 'polygon(0 100%, 100% 30%, 100% 100%, 0 100%)' }}></div>
     </section>
   );
 };
