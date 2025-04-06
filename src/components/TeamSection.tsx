@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { GitHub, Globe, Twitter, Linkedin } from 'lucide-react';
+import { Github, Globe, Twitter, Linkedin } from 'lucide-react';
 
 const TeamSection = () => {
   const teamMembers = [
@@ -68,7 +68,7 @@ const TeamSection = () => {
                       rel="noopener noreferrer" 
                       className="text-gray-600 hover:text-everest-yellow transition-colors"
                     >
-                      <GitHub size={20} />
+                      <Github size={20} />
                     </a>
                     <a 
                       href={member.twitter} 
